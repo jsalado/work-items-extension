@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "node": "^11.10.0",
-    "vss-web-extension-sdk": "^4.126.2"
+    "vss-web-extension-sdk": "^5.0.0"
   },
   "devDependencies": {},
   "scripts": {

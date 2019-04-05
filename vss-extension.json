@@ -1,8 +1,8 @@
 {
     "manifestVersion": 1,
     "id": "kiuwan-workitems-extension",
-    "name": "Kiuwan",
-    "version": "0.1.1",
+    "name": "Kiuwan Work Items",
+    "version": "0.1.7",
     "publisher": "kiuwan-publisher",
     "targets": [
         {
@@ -13,7 +13,7 @@
             "version": "[14.2,)"
         }
     ],
-    "public": true,
+    "public": false,
     "description": "Create Work Items in your project to fix vulnerabilities and defects found by Kiuwan and available in Kiuwan action plans and Kiuwan failed adit results",
     "content": {
         "details": {
@@ -39,11 +39,6 @@
         "color": "#01a4a6",
         "theme": "dark"
     },
-    "screenshots": [
-        {
-            "path": "screenshots/tfs-build-progress.png"
-        }
-    ],
     "categories": [
         "Azure Boards"
     ],
@@ -62,42 +57,21 @@
         "SCA"
     ],
     "scopes": [
-        "vso.code",
         "vso.work",
+        "vso.code",
+        "vso.build",
         "vso.test"
     ],
     "files": [
         {
-            "path": "images",
-            "addressable": true
-        },
-        {
-            "path": "css",
-            "addressable": true
-        },
-        {
             "path": "screenshots"
         },
         {
-            "path": "kiuwanTab.html",
+            "path": "KiuwanWorkItemService.html",
             "addressable": true
         },
         {
-            "path": "kiuwanSummary.html",
-            "addressable": true
-        },
-        {
-            "path": "kiuwanAuditTab.html",
-            "addressable": true
-        },
-        {
-            "path": "baseline-analysis-task"
-        },
-        {
-            "path": "delivery-analysis-task"
-        },
-        {
-            "path": "enhancer",
+            "path": "action-plans",
             "addressable": true,
             "packagePath": "scripts"
         },
@@ -109,126 +83,16 @@
     ],
     "contributions": [
         {
-            "id": "kiuwan-info-tab",
-            "type": "ms.vss-build-web.build-results-tab",
-            "description": "A tab contributing to build results view with Kiuwan results info",
+            "id": "kiuwan-work-item-service",
+            "type": "ms.vss-web.hub",
+            "description": "Adds a  hub to the Boards hub group to create work items from Kiuwan results.",
             "targets": [
-                "ms.vss-build-web.build-results-view"
+                "ms.vss-work-web.work-hub-group"
             ],
             "properties": {
-                "name": "Kiuwan",
-                 "uri": "kiuwanTab.html",
-                 "supportsTasks": ["f345ac07-f8a0-4859-bcaf-d71fd62bcf37"]
-            }
-        },
-        {
-            "id": "build-kiuwan-summary-section",
-            "type": "ms.vss-build-web.build-results-section",
-            "description": "A section contributing to our own new tab and also to existing build 'summary' tab",
-            "targets": [
-                "ms.vss-build-web.build-results-summary-tab"
-            ],
-            "properties": {
-                 "name": "Kiuwan Summary",
-                 "uri": "kiuwanSummary.html",
-                 "supportsTasks": [
-                    "f345ac07-f8a0-4859-bcaf-d71fd62bcf37",
-                    "4e6e25e3-c0b5-4986-8714-5c751945c15f"
-                   ],
-                "order": 20,
-                 "height": 300
-            }
-        },
-        {
-            "id": "build-kiuwan-audit-results-tab",
-            "type": "ms.vss-build-web.build-results-tab",
-            "description": "A tab contributing to build results view and depends on Kiuwan delivery analysis task",
-            "targets": [
-                "ms.vss-build-web.build-results-view"
-            ],
-            "properties": {
-                "name": "Kiuwan Audit",
-                 "uri": "kiuwanAuditTab.html",
-                 "supportsTasks": ["4e6e25e3-c0b5-4986-8714-5c751945c15f"]
-            }
-        },
-        {
-            "id": "kiuwan-bl-analysis-task",
-            "type": "ms.vss-distributed-task.task",
-            "targets": [
-                "ms.vss-distributed-task.tasks"
-            ],
-            "properties": {
-                "name": "baseline-analysis-task"
-            }
-        },
-        {
-            "id": "kiuwan-cr-analysis-task",
-            "type": "ms.vss-distributed-task.task",
-            "targets": [
-                "ms.vss-distributed-task.tasks"
-            ],
-            "properties": {
-                "name": "delivery-analysis-task"
-            }
-        },
-        {
-            "id": "kiuwan-service-endpoint",
-            "description": "Kiuwan servide endpoint to connect to the Kiuwan platform",
-            "type": "ms.vss-endpoint.service-endpoint-type",
-            "targets": [
-                "ms.vss-endpoint.endpoint-types"
-            ],
-            "properties": {
-                "name": "kiuwan",
-                "displayName": "Kiuwan Platform",
-                "url": {
-                    "displayName": "Kiuwan URL",
-                    "helpText": "For the cloud Kiuwan Service use: https://www.kiuwan.com This is the default.</br>For Kiuwan Enterprise on-premises use your Kiuwan server URL (i.e. http://kiuwan.mycompany.com).",
-                    "isVisible": true
-                },
-                "dataSources": [
-                    {
-                        "name": "TestConnection",
-                        "endpointUrl": "saas/rest/v1/info",
-                        "resultSelector": "jsonpath:$.username"
-                    },
-                    {
-                        "name": "ListApplications",
-                        "endpointUrl": "saas/rest/v1/apps/list",
-                        "resultSelector": "jsonpath:$[*].name"
-                    }
-                ],
-                "authenticationSchemes": [
-                    {
-                        "type": "ms.vss-endpoint.endpoint-auth-scheme-basic",
-                        "inputDescriptors": [
-                            {
-                                "id": "username",
-                                "name": "Username",
-                                "description": "This is your Kiuwan username",
-                                "inputMode": "textbox",
-                                "isConfidential": false,
-                                "validation": {
-                                    "isrequired": true,
-                                    "dataType": "string"
-                                }
-                            },
-                            {
-                                "id": "password",
-                                "name": "Password",
-                                "description": "Yup! this is your Kiuwan password",
-                                "inputMode": "passwordBox",
-                                "isConfidential": true,
-                                "validation": {
-                                    "isrequired": true,
-                                    "dataType": "string"
-                                }
-                            }
-                        ]
-                    }
-                ],
-                "helpMarkdown": "<a href=\"https://www.kiuwam.com\" target=\"_blank\"><b>Learn More</b></a>"
+                "name": "Kiuwan Work Items",
+                "order": 110,
+                "uri": "KiuwanWorkItemService.html"
             }
         }
     ]

@@ -7,7 +7,10 @@
     "node": "^11.10.0",
     "vss-web-extension-sdk": "^5.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/node": "^11.9.4",
+    "azure-devops-extension-api": "^1.147.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

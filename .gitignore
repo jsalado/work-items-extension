@@ -1,0 +1,9 @@
+*.bak
+.git
+*.vsix
+node_modules
+*.map
+*.js
+*.zip
+*.txt
+**/*.js

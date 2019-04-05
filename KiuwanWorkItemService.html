@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Work item form observer sample</title>
+    <script src="lib/VSS.SDK.min.js"></script>
+    <style>
+        .open-existing-work-item, .open-existing-work-item {
+            margin: 20px;
+        }
+        .work-item-types {
+            width: 200px;
+            display: inline-block;
+            margin-left: 5px;
+            margin-right: 5px;
+            vertical-align: bottom;
+        }
+        #existing-wit-id {
+            border: 1px solid #DDD;
+        }
+    </style>
+</head>
+<body>
+    <div class="kiuwan-action-plans">
+        <div class="action-plans"></div>
+    </div>
+    
+    <script type="text/javascript">
+        VSS.init({
+            usePlatformScripts: true,
+            moduleLoaderConfig: {
+                paths: { "action-plans": "scripts" }
+            }
+        });
+
+        VSS.ready(function () {
+            require(["action-plans/actionPlans"], function () { });
+        });   
+    </script>
+</body>
+</html>
